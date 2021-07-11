@@ -1,0 +1,31 @@
+<form id="form" action="<%= action%>" method="POST">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input class="form-control" id="name" name="name" type="text" placeholder="Name" value="<%= name%>" required />
+        <label for="name">Name</label>
+      </div>
+    </div>
+
+    <% forms.forEach( (form, i) => { const value = form.value || "" %>
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="<%= form.id %>"
+          name="<%= form.id %>"
+          type="number"
+          min="0"
+          placeholder="<%= form.id %>"
+          value="<%= value%>"
+          required
+        />
+        <label for="name"><%= form.name %></label>
+      </div>
+    </div>
+    <% }) %>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary col-md-12">Simpan Data</button>
+    </div>
+  </div>
+</form>

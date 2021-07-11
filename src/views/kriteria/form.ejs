@@ -1,0 +1,50 @@
+<form id="form" action="<%= action%>" method="POST">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          value="<%= value.name%>"
+          required
+        />
+        <label for="name">Name</label>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="bobot"
+          name="bobot"
+          type="number"
+          placeholder="Bobot"
+          value="<%= value.bobot%>"
+        />
+        <label for="bobot">Bobot</label>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <div class="form-floating">
+          <select class="form-select" name="jenis" id="floatingSelect" required>
+            <% const a = value.jenis == 0 ? "selected" :""%>
+            <% const b = value.jenis == 1 ? "selected" :""%>
+            <option disabled selected value>Jenis</option>
+            <option <%=a%> value="0">Cost</option>
+            <option <%=b%> value="1">Benefit</option>
+          </select>
+          <label for="floatingSelect">Jenis</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary col-md-12">Simpan Data</button>
+    </div>
+  </div>
+</form>

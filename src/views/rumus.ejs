@@ -1,0 +1,114 @@
+<a class="btn btn-success" href="/rumus/hitung">Htiung</a>
+
+<div class="card shadow mt-3">
+  <h2 class="mx-auto">Perhitungan Moora</h2>
+  <div class="mt-2">$$x=\begin {bmatrix}<%=moora.matrix1%>\end{bmatrix}$$</div>
+  <%moora.perhitungan.forEach((perhitungan,i)=>{ %>
+  <div class="mt-2">\[C_<%=i+1%>=\sqrt{_{<%=perhitungan.matrixString%>^2}} = <%=perhitungan.sum%>\]</div>
+  <div class="row">
+    <%perhitungan.matrix.forEach((matrix,j)=>{ %>
+    <div class="col-md-2 col-sm-12">
+      \[A_{<%=j+1%><%=i+1%>} = {<%=matrix%> \over <%=perhitungan.sum%>}= <%=perhitungan.perhitungan1[j]%>\]
+    </div>
+    <% })%>
+  </div>
+  <% })%>
+  <div class="mx-auto mt-2">
+    <h6>Hasil Normalisasi Matrix x</h6>
+    <div>$$x=\begin {bmatrix}<%=moora.matrix2%>\end{bmatrix}$$</div>
+    <h6>Perhitungan Nilai Optimasi Untuk Alternatif 1</h6>
+    <div>
+      \[y=((x_{11}*bobot)+(x_{31}*bobot)+(x_{41}*bobot)+(x_{51}*bobot)+(x_{61}*bobot)+(x_{71}*bobot))-(x_{21}*bobot)\]
+    </div>
+  </div>
+  <div class="mx-auto mt-2">
+    <p>Maka diperoleh Hasil Nilai Optimasi Pada Tabel Berikut</p>
+    <div class="col col-md-6">
+      <table class="table mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">Alternatif</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Y</th>
+            <th scope="col">Rangking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%moora.hasil.forEach((hasil,i)=>{ %>
+          <tr>
+            <td><%= hasil.a %></td>
+            <td><%= hasil.name%></td>
+            <td><%= hasil.y%></td>
+            <td><%= i+1%></td>
+          </tr>
+          <%}) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="mx-auto mt-5">Perhitungan Waspas</h2>
+  <div class="mt-2">$$x=\begin {bmatrix}<%=waspas.matrix1%>\end{bmatrix}$$</div>
+  <div class="mx-auto mt-2">Normalisasi Terhadap Matrix x</div>
+  <%waspas.perhitungan.forEach((perhitungan,i)=>{ %>
+  <div class="row mb-5">
+    <%perhitungan.matrix.forEach((matrix,j)=>{ %>
+    <div class="col-md-2 col-sm-12">
+      \[A_{<%=j+1%><%=i+1%>} = {<%=matrix%> \over <%=perhitungan.sumbuX%>}= <%=perhitungan.normalisasi[j]%>\]
+    </div>
+    <% })%>
+  </div>
+  <% })%>
+  <div class="mx-auto mt-2">Hasil Normalisasi Matrix x Maka diperoleh Matrix xij</div>
+  <div class="mt-2">$$x=\begin {bmatrix}<%=waspas.matrix2%>\end{bmatrix}$$</div>
+  <div class="mx-auto mt-2">Mengoptimalkan Atribut Dengan Mengalikan Terhadap Bobot Dari Setiap Kriteria</div>
+  <div>
+    \[qx=0.5*((x_{11}*bobot)+(x_{21}*bobot)+(x_{31}*bobot)+(x_{41}*bobot)+(x_{51}*bobot)+(x_{61}*bobot)+(x_{71}*bobot))\]
+    \[qy=0.5*((x_{11}^{bobot})+(x_{21}^{bobot})+(x_{31}^{bobot})+(x_{41}^{bobot})+(x_{51}^{bobot})+(x_{61}^{bobot})+(x_{71}^{bobot}))\]
+    \[Q= qx+qy\]
+  </div>
+  <div class="row">
+    <% waspas.hasil.forEach((hasil,i) => { %>
+    <div class="col col-md-3">\[Q<%=i+1%>= <%= hasil.q1%> + <%= hasil.q2%> =<%= hasil.q%> \]</div>
+    <%}) %>
+  </div>
+
+  <div class="mx-auto mt-2">
+    <p>Maka diperoleh Hasil Nilai Optimasi Pada Tabel Berikut</p>
+    <div class="col col-md-6">
+      <table class="table mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">Alternatif</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Y</th>
+            <th scope="col">Rangking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%waspas.hasil.forEach((hasil,i)=>{ %>
+          <tr>
+            <td><%= hasil.a %></td>
+            <td><%= hasil.name%></td>
+            <td><%= hasil.q%></td>
+            <td><%= i+1%></td>
+          </tr>
+          <%}) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% const toastSuccess = messages.success %> <% const toastError = messages.error %>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  $(document).ready(function () {
+    const toastSuccess = '<%= toastSuccess %>';
+    const toastError = '<%= toastError %>';
+    toastSuccess != '' && notification('success', toastSuccess);
+    toastError != '' && notification('error', toastError);
+  });
+</script>

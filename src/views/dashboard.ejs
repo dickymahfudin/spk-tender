@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-primary text-white mb-4">
+      <div class="card-body h4">Total Vendor</div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+        <div class="text-white h5"><%= moora.length%></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-warning text-white mb-4">
+      <div class="card-body h4">Total Kriteria</div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+        <div class="text-white h5"><%= kriterias.length%></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-success text-white mb-4">
+      <div class="card-body h4">Peringkat Pertama Moora</div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+        <div class="text-white h5"><%= moora[0].name%></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-danger text-white mb-4">
+      <div class="card-body h4">Peringkat Pertama Waspas</div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+        <div class="text-white h5"><%= waspas[0].name%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <h5>Hasil Metode Moora</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Ranking</th>
+              <th scope="col">Name</th>
+              <th scope="col">Nilai</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% moora.forEach((e,i)=>{ %>
+            <tr>
+              <td><%=i+1%></td>
+              <td><%=e.name%></td>
+              <td><%=e.moora%></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h5>Hasil Metode Waspas</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Ranking</th>
+              <th scope="col">Name</th>
+              <th scope="col">Nilai</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% waspas.forEach((e,i)=>{ %>
+            <tr>
+              <td><%=i+1%></td>
+              <td><%=e.name%></td>
+              <td><%=e.waspas%></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<% const toastSuccess=messages.success %> <% const toastError=messages.error %>
+<script>
+  $(document).ready(function () {
+    const toastSuccess = '<%= toastSuccess %>';
+    const toastError = '<%= toastError %>';
+    toastSuccess != '' && notification('success', toastSuccess);
+    toastError != '' && notification('error', toastError);
+  });
+</script>
