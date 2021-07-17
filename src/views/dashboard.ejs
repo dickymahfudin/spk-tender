@@ -19,7 +19,8 @@
     <div class="card bg-success text-white mb-4">
       <div class="card-body h4">Peringkat Pertama Moora</div>
       <div class="card-footer d-flex align-items-center justify-content-between">
-        <div class="text-white h5"><%= moora[0].name%></div>
+        <%const mooraName = moora.length != 0 ? moora[0].name : ""%>
+        <div class="text-white h5"><%= mooraName%></div>
       </div>
     </div>
   </div>
@@ -27,7 +28,8 @@
     <div class="card bg-danger text-white mb-4">
       <div class="card-body h4">Peringkat Pertama Waspas</div>
       <div class="card-footer d-flex align-items-center justify-content-between">
-        <div class="text-white h5"><%= waspas[0].name%></div>
+        <%const waspasName = waspas.length != 0 ? waspas[0].name : ""%>
+        <div class="text-white h5"><%= waspasName%></div>
       </div>
     </div>
   </div>
