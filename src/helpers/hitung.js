@@ -5,6 +5,7 @@ const hitung = (dataVendor, kriteria) => {
       const matrix = arr.map(val => val[param]);
       const sum = +Math.sqrt(matrix.reduce((acc, val) => acc + Math.pow(val, 2), 0)).toFixed(3);
       const perhitungan1 = matrix.map(val => +(val / sum).toFixed(3));
+      console.log(perhitungan1);
       const alternatif = perhitungan1.map(val => +(val * kriteria.bobot).toFixed(3));
       const alternatifKriteria = alternatif.map(e => {
         return { kriteria: param, value: e, jenis: kriteria.jenis };
@@ -57,7 +58,11 @@ const hitung = (dataVendor, kriteria) => {
         .filter(el => el.jenis === 1)
         .map(mp => mp.value)
         .reduce(reducer);
-      const cost = e.filter(el => el.jenis === 0);
+      const cost = e.filter(el => el.jenis === 0) || 0;
+      if (cost.length === 0) {
+        const sum = +benefit;
+        return +sum.toFixed(3);
+      }
       const sum = +(benefit - cost[0].value);
       return +sum.toFixed(3);
     });
@@ -120,7 +125,7 @@ const hitung = (dataVendor, kriteria) => {
       const lokasi = datas[i];
       const q1 = +(0.5 * matrix.map(e => e.q1).reduce(reducer)).toFixed(3);
       const q2 = +(0.5 * matrix.map(e => e.q2).reduce(reducer)).toFixed(3);
-      const q = q1 + q2;
+      const q = +(q1 + q2).toFixed(3);
       return { id: lokasi.id, a: `A${i + 1}`, name: lokasi.vendor, q1, q2, q };
     });
     hasil.sort((a, b) => b.q - a.q);
