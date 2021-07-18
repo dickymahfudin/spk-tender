@@ -35,6 +35,7 @@
   </div>
 </div>
 
+<% if(status) { %>
 <div class="card">
   <div class="card-body">
     <div class="row">
@@ -83,7 +84,9 @@
     </div>
   </div>
 </div>
-<% const toastSuccess=messages.success %> <% const toastError=messages.error %>
+<% } else{ %>
+<h1>Harap Lakukan Penilaian</h1>
+<% } %> <% const toastSuccess=messages.success %> <% const toastError=messages.error %>
 <script>
   $(document).ready(function () {
     const toastSuccess = '<%= toastSuccess %>';

@@ -3,7 +3,7 @@ const router = express.Router();
 const jsonToTable = require('../helpers/jsonToTable');
 const group = require('../helpers/group');
 const dataFormat = require('../helpers/dataFormat');
-const { kriteria, link } = require('../models');
+const { kriteria, link, user } = require('../models');
 
 router.get('/', async (req, res, next) => {
   const username = req.session.username;
@@ -46,15 +46,18 @@ router.post('/', async (req, res, next) => {
       }
     }
   }
+  await user.update({ status: false }, { where: { id: user_id } });
   req.flash('success', 'Data Berhasil Ditambahkan');
   return res.redirect('/kriteria');
 });
 
 router.post('/:id', async (req, res, next) => {
   const { name, bobot, jenis } = req.body;
+  const user_id = req.session.userId;
   const id = req.params.id;
   const tempName = await kriteria.findByPk(id);
   await tempName.update({ name, bobot, jenis: +jenis });
+  await user.update({ status: false }, { where: { id: user_id } });
   req.flash('success', 'Data Berhasil Diubah');
   return res.redirect('/kriteria');
 });

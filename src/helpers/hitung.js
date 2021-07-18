@@ -5,7 +5,6 @@ const hitung = (dataVendor, kriteria) => {
       const matrix = arr.map(val => val[param]);
       const sum = +Math.sqrt(matrix.reduce((acc, val) => acc + Math.pow(val, 2), 0)).toFixed(3);
       const perhitungan1 = matrix.map(val => +(val / sum).toFixed(3));
-      console.log(perhitungan1);
       const alternatif = perhitungan1.map(val => +(val * kriteria.bobot).toFixed(3));
       const alternatifKriteria = alternatif.map(e => {
         return { kriteria: param, value: e, jenis: kriteria.jenis };

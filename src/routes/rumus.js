@@ -3,19 +3,23 @@ const router = express.Router();
 const hitung = require('../helpers/hitung');
 const group = require('../helpers/group');
 const dataFormat = require('../helpers/dataFormat');
-const { kriteria, link, vendor } = require('../models');
+const { kriteria, link, vendor, user } = require('../models');
 
 router.get('/', async (req, res, next) => {
   const user_id = req.session.userId;
   const locations = await link.getAll({ user_id });
   const kriterias = await kriteria.getAll(user_id);
+  const status = (await user.findByPk(user_id)).status;
 
   const tempData = group(locations, 'vendor_id');
+  let moora, waspas;
   const datas = dataFormat(tempData);
-  const hitungs = hitung(datas, kriterias);
-  const moora = hitungs.moora;
-  const waspas = hitungs.waspas;
-  res.render('rumus', { title: 'Rumus', moora, waspas });
+  if (locations.length > 1 && kriterias.length > 1) {
+    const hitungs = hitung(datas, kriterias);
+    moora = hitungs.moora;
+    waspas = hitungs.waspas;
+  }
+  res.render('rumus', { title: 'Rumus', moora, waspas, status });
 });
 
 router.get('/hitung', async (req, res, next) => {
@@ -31,6 +35,7 @@ router.get('/hitung', async (req, res, next) => {
       hitungs.db.forEach(async db => {
         await vendor.update({ moora: db.y, waspas: db.q }, { where: { id: db.id } });
       });
+      await user.update({ status: true }, { where: { id: user_id } });
       req.flash('success', 'Perhitungan Berhasil');
       return res.redirect('/rumus');
     }

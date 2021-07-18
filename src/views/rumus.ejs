@@ -1,5 +1,8 @@
+<% if(moora && waspas) { %>
 <a class="btn btn-success" href="/rumus/hitung">Htiung</a>
-
+<% } else{ %>
+<h6>Harap isi data Kriteria dan vendor</h6>
+<% }if(status) { %>
 <div class="card shadow mt-3">
   <h2 class="mx-auto">Perhitungan Moora</h2>
   <div class="mt-2">$$x=\begin {bmatrix}<%=moora.matrix1%>\end{bmatrix}$$</div>
@@ -99,8 +102,7 @@
     </div>
   </div>
 </div>
-
-<% const toastSuccess = messages.success %> <% const toastError = messages.error %>
+<% } %> <% const toastSuccess = messages.success %> <% const toastError = messages.error %>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

@@ -4,31 +4,25 @@ const criterias = async user_id => {
   const createdAt = new Date();
   const updatedAt = new Date();
   const dataKriteria = [
-    { user_id, name: 'Kualitas layanan', bobot: 0.4, jenis: 1, createdAt, updatedAt },
-    { user_id, name: 'Harga Penawaran', bobot: 0.23, jenis: 0, createdAt, updatedAt },
-    { user_id, name: 'Kemampuan Pendanaan', bobot: 0.15, jenis: 1, createdAt, updatedAt },
-    { user_id, name: 'Kredibilitas', bobot: 0.1, jenis: 1, createdAt, updatedAt },
-    { user_id, name: 'Pengalaman', bobot: 0.07, jenis: 1, createdAt, updatedAt },
-    { user_id, name: 'Kelengkapan Legalitas', bobot: 0.05, jenis: 1, createdAt, updatedAt },
+    { user_id, name: 'Kualifikasi', bobot: 0.1, jenis: 1, createdAt, updatedAt },
+    { user_id, name: 'Pembuktian', bobot: 0.2, jenis: 1, createdAt, updatedAt },
+    { user_id, name: 'Teknis', bobot: 0.4, jenis: 1, createdAt, updatedAt },
+    { user_id, name: 'Harga', bobot: 0.3, jenis: 1, createdAt, updatedAt },
   ];
 
   const dataLocation = [
-    { user_id, name: 'Telkomsel', moora: '0.280', waspas: '3.484', createdAt, updatedAt },
-    { user_id, name: 'Indosat', moora: '0.240', waspas: '3.465', createdAt, updatedAt },
-    { user_id, name: '3 Hutchinson', moora: '0.166', waspas: '3.494', createdAt, updatedAt },
-    { user_id, name: 'AXIS', moora: '0.186', waspas: '3.404', createdAt, updatedAt },
-    { user_id, name: 'XL Axiata', moora: '0.242', waspas: '3.541', createdAt, updatedAt },
-    { user_id, name: 'Smartfren', moora: '0.134', waspas: '3.420', createdAt, updatedAt },
-    { user_id, name: 'PSN', moora: '0.164', waspas: '3.353', createdAt, updatedAt },
+    { user_id, name: 'PT TATA BUMI KONSULTAN', moora: '0.481', waspas: '2.484', createdAt, updatedAt },
+    { user_id, name: 'MARTHA TRIA SELARAS', moora: '0.448', waspas: '2.414', createdAt, updatedAt },
+    { user_id, name: 'CV INTISHAR KARYA', moora: '0.468', waspas: '2.459', createdAt, updatedAt },
+    { user_id, name: 'PT JASA PERENCANA NUSANTARA', moora: '0.462', waspas: '2.446', createdAt, updatedAt },
+    { user_id, name: 'TIRTA BUANA', moora: '0.305', waspas: '1.79', createdAt, updatedAt },
   ];
   const valueLink = [
-    [90, 50, 80, 90, 90, 90],
-    [80, 60, 80, 80, 90, 80],
-    [70, 90, 70, 80, 60, 80],
-    [70, 70, 70, 80, 60, 60],
-    [80, 70, 90, 90, 90, 90],
-    [60, 90, 60, 70, 60, 90],
-    [60, 70, 60, 60, 90, 90],
+    [84.56, 92, 92.03, 94.68],
+    [72.11, 77.96, 87.18, 94.68],
+    [78.85, 79.36, 90.89, 100],
+    [84.95, 78.92, 88.74, 96.57],
+    [85.77, 71.78, 88.81, 0],
   ];
   const kriterias = await models.kriteria.bulkCreate(dataKriteria);
   const locations = await models.vendor.bulkCreate(dataLocation);
