@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   supplier.init(
     {
-      user_id: DataTypes.INTEGER,
       name: DataTypes.STRING,
       moora: DataTypes.FLOAT,
       waspas: DataTypes.FLOAT,

@@ -1,0 +1,53 @@
+<form id="form" action="<%= action%>" method="POST">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          value="<%= value.name%>"
+          required
+        />
+        <label for="name">Name</label>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="username"
+          name="username"
+          type="text"
+          placeholder="Username"
+          value="<%= value.username%>"
+          required
+        />
+        <label for="name">Username</label>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="password"
+          name="password"
+          type="password"
+          min="6"
+          placeholder="Password"
+          value="<%= value.password%>"
+          required
+        />
+        <label for="name">Password</label>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary col-md-12">Simpan Data</button>
+    </div>
+  </div>
+</form>

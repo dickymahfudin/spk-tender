@@ -3,7 +3,7 @@
     <% if(role == 1) { %>
     <a
       id="add"
-      href="/kriteria/form"
+      href="/user/form"
       class="btn btn-primary btn-round"
       type="submit"
       data-placement="bottom"
@@ -14,7 +14,7 @@
     <% } %>
   </div>
   <div class="card-body">
-    <table class="table table-bordered" id="dataTable" url="/kriteria/table" width="100%" cellspacing="0"></table>
+    <table class="table table-bordered" id="dataTable" url="/user/table" width="100%" cellspacing="0"></table>
 
     <% const toastSuccess = messages.success %> <% const toastError = messages.error %>
   </div>

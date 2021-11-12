@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcryptjs');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
@@ -22,6 +24,12 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
+      role: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 2,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -31,18 +39,27 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-    // const createdAt = new Date();
-    // const updatedAt = new Date();
+    const createdAt = new Date();
+    const updatedAt = new Date();
 
-    // await queryInterface.bulkInsert('users', [
-    //   {
-    //     name: 'dism',
-    //     username: 'dism',
-    //     password: '123',
-    //     createdAt,
-    //     updatedAt,
-    //   },
-    // ]);
+    await queryInterface.bulkInsert('users', [
+      {
+        name: 'Admin',
+        username: 'admin',
+        password: await bcrypt.hash('admin1234', 10),
+        role: 1,
+        createdAt,
+        updatedAt,
+      },
+      {
+        name: 'Fajar',
+        username: 'fajar',
+        password: await bcrypt.hash('user1234', 10),
+        role: 2,
+        createdAt,
+        updatedAt,
+      },
+    ]);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('users');

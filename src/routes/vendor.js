@@ -7,14 +7,12 @@ const { vendor, kriteria, link } = require('../models');
 
 router.get('/', async (req, res, next) => {
   const username = req.session.username;
-  const user_id = req.session.userId;
-  const kriterias = await kriteria.getAll(user_id);
+  const kriterias = await kriteria.getAll();
   return res.render('vendor/index', { title: 'Vendor', username, kriterias });
 });
 
 router.get('/table', async (req, res, next) => {
-  const user_id = req.session.userId;
-  const locations = await link.getAll({ user_id });
+  const locations = await link.getAll();
   const tempData = group(locations, 'vendor_id');
   const data = dataFormat(tempData);
   return res.status(200).json(jsonToTable(data));
@@ -22,10 +20,8 @@ router.get('/table', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const data = req.body;
-  const user_id = req.session.userId;
   const tempLocation = await vendor.findOne({
     where: {
-      user_id,
       name: data.name,
     },
   });
@@ -33,11 +29,10 @@ router.post('/', async (req, res, next) => {
     req.flash('error', 'Nama Lokasi Tidak Boleh Sama');
     return res.redirect('/vendor');
   }
-  const location = await vendor.create({ name: data.name, user_id, alamat: data.alamat, contact: data.contact });
+  const location = await vendor.create({ name: data.name, alamat: data.alamat, contact: data.contact });
   for (const value of Object.keys(data)) {
     if (value != 'name' && value != 'alamat' && value != 'contact') {
       await link.create({
-        user_id,
         kriteria_id: value,
         vendor_id: location.id,
         value: data[value],
@@ -51,10 +46,7 @@ router.post('/', async (req, res, next) => {
 router.post('/:id', async (req, res, next) => {
   const data = req.body;
   const { id } = req.params;
-  const user_id = req.session.userId;
-  const tempVendor = await vendor.findOne({
-    where: { id, user_id },
-  });
+  const tempVendor = await vendor.findOne();
   if (tempVendor) {
     tempVendor.update({ name: data.name });
   }
@@ -62,14 +54,12 @@ router.post('/:id', async (req, res, next) => {
     if (value != 'name') {
       await link.update(
         {
-          user_id,
           kriteria_id: value,
           vendor_id: tempVendor.id,
           value: data[value],
         },
         {
           where: {
-            user_id,
             kriteria_id: value,
             vendor_id: tempVendor.id,
           },
@@ -90,8 +80,7 @@ router.get('/delete/:id', async (req, res, next) => {
 });
 
 router.get('/form', async (req, res, next) => {
-  const user_id = req.session.userId;
-  const forms = await kriteria.getAll(user_id);
+  const forms = await kriteria.getAll();
   return res.render('vendor/form', {
     action: '/vendor',
     forms,
@@ -102,9 +91,8 @@ router.get('/form', async (req, res, next) => {
 
 router.get('/form/:id', async (req, res, next) => {
   const { id } = req.params;
-  const user_id = req.session.userId;
-  const kriterias = await kriteria.getAll(user_id);
-  const tempForms = await link.getAll({ vendor_id: id, user_id });
+  const kriterias = await kriteria.getAll();
+  const tempForms = await link.getAll({ vendor_id: id });
   const name = tempForms[0]['vendor']['name'];
   const forms = kriterias.map(kriteria => {
     const passkriteria = kriteria.dataValues;

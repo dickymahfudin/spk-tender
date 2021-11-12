@@ -1,4 +1,6 @@
 'use strict';
+const dataLaporan = require('../../src/helpers/dataLaporan');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('links', {
@@ -7,16 +9,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
       },
       kriteria_id: {
         type: Sequelize.INTEGER,
@@ -50,6 +42,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    dataLaporan();
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('links');

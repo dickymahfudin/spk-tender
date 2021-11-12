@@ -25,6 +25,7 @@ router.post('/', async (req, res, next) => {
   req.session.login = true;
   req.session.userId = tempUser.id;
   req.session.username = tempUser.name;
+  req.session.role = tempUser.role;
   return res.redirect('/dashboard');
 });
 
@@ -43,6 +44,11 @@ router.post('/signup', async (req, res, next) => {
   const create = await user.create({ username, password });
   laporan && dataLaporan(create.id);
   req.flash('success', 'Silahkan Masuk');
+  res.redirect('/login');
+});
+
+router.get('/datalaporan', async (req, res, next) => {
+  dataLaporan();
   res.redirect('/login');
 });
 

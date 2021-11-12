@@ -1,12 +1,13 @@
 $(document).ready(function () {
   const url = $('#dataTable').attr('url');
   const parsUrl = url.split('/')[1];
+  console.log(role);
   $.ajax({
     type: 'GET',
     url,
     dataType: 'json',
     success: function (response) {
-      if (parsUrl != 'dashboard') {
+      if (parsUrl != 'dashboard' && role == 1) {
         response.columns.push({
           data: 'id',
           title: '',

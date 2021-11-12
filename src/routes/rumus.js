@@ -6,10 +6,9 @@ const dataFormat = require('../helpers/dataFormat');
 const { kriteria, link, vendor, user } = require('../models');
 
 router.get('/', async (req, res, next) => {
-  const user_id = req.session.userId;
-  const locations = await link.getAll({ user_id });
-  const kriterias = await kriteria.getAll(user_id);
-  const status = (await user.findByPk(user_id)).status;
+  const locations = await link.getAll();
+  const kriterias = await kriteria.getAll();
+  const status = true;
 
   const tempData = group(locations, 'vendor_id');
   let moora, waspas;
@@ -24,9 +23,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/hitung', async (req, res, next) => {
   try {
-    const user_id = req.session.userId;
-    const locations = await link.getAll({ user_id });
-    const kriterias = await kriteria.getAll(user_id);
+    const locations = await link.getAll();
+    const kriterias = await kriteria.getAll();
 
     const tempData = group(locations, 'vendor_id');
     const datas = dataFormat(tempData);
@@ -35,7 +33,6 @@ router.get('/hitung', async (req, res, next) => {
       hitungs.db.forEach(async db => {
         await vendor.update({ moora: db.y, waspas: db.q }, { where: { id: db.id } });
       });
-      await user.update({ status: true }, { where: { id: user_id } });
       req.flash('success', 'Perhitungan Berhasil');
       return res.redirect('/rumus');
     }
@@ -48,9 +45,8 @@ router.get('/hitung', async (req, res, next) => {
 });
 
 router.get('/json', async (req, res, next) => {
-  const user_id = req.session.userId;
-  const locations = await link.getAll({ user_id });
-  const kriterias = await kriteria.getAll(user_id);
+  const locations = await link.getAll();
+  const kriterias = await kriteria.getAll();
 
   const tempData = group(locations, 'vendor_id');
   const datas = dataFormat(tempData);

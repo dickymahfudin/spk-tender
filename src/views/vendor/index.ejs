@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <% if(kriterias.length !=0) { %>
+    <% if(kriterias.length !=0 ) { %> <% if(role == 1) { %>
     <a
       id="add"
       href="/vendor/form"
@@ -11,11 +11,10 @@
     >
       <i class="fas fa-plus"></i> Tambah
     </a>
-    <% } else { %> Tambah Data Criteria Terlebih Dahulu <% } %>
+    <% }} else { %> Tambah Data Criteria Terlebih Dahulu <% } %>
   </div>
   <div class="card-body">
     <table class="table table-bordered" id="dataTable" url="/vendor/table" width="100%" cellspacing="0"></table>
-
     <% const toastSuccess=messages.success %> <% const toastError=messages.error %>
   </div>
 </div>

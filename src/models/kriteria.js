@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {}
     static async getAll(user_id) {
       return await this.findAll({
-        where: { user_id },
         order: [['id', 'ASC']],
         attributes: { exclude: ['createdAt', 'updatedAt'] },
       })
@@ -20,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   kriteria.init(
     {
-      user_id: DataTypes.INTEGER,
       name: DataTypes.STRING,
       bobot: DataTypes.FLOAT,
       jenis: DataTypes.INTEGER,

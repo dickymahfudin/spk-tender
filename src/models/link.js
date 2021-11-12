@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.user, {
-        foreignKey: 'user_id',
-        as: 'user',
-      });
       this.belongsTo(models.kriteria, {
         foreignKey: 'kriteria_id',
         as: 'kriteria',
@@ -27,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       return await this.findAll({
         where,
         include: [
-          { model: sequelize.models.user, as: 'user', attributes: { exclude } },
           {
             model: sequelize.models.kriteria,
             as: 'kriteria',
@@ -52,7 +47,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   link.init(
     {
-      user_id: DataTypes.INTEGER,
       kriteria_id: DataTypes.INTEGER,
       vendor_id: DataTypes.INTEGER,
       value: DataTypes.FLOAT,
