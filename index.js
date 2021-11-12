@@ -39,12 +39,12 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/login', loginRouter);
-app.use('/user', userRouter);
+app.use('/user', middleware, userRouter);
 app.use('/vendor', middleware, vendorRouter);
 app.use('/kriteria', middleware, kriteriaRouter);
 app.use('/rumus', middleware, rumusRouter);
 app.use('/dashboard', middleware, dashboardRouter);
 
-// app.use('*', middleware, (req, res) => res.redirect('/dashboard'));
+app.use('*', middleware, (req, res) => res.redirect('/dashboard'));
 
 app.listen(PORT, () => console.info(`Server Running on : http://localhost:${PORT}`));
